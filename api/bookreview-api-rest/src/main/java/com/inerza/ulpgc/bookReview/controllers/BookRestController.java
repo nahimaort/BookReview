@@ -2,11 +2,8 @@ package com.inerza.ulpgc.bookReview.controllers;
 
 import com.inerza.ulpgc.bookReview.core.persistence.IBookService;
 import com.inerza.ulpgc.bookReview.model.dto.BookDTO;
-import com.inerza.ulpgc.bookReview.model.dto.ReviewDTO;
 import com.inerza.ulpgc.bookReview.model.entities.Book;
-import com.inerza.ulpgc.bookReview.model.entities.Review;
 import com.inerza.ulpgc.bookReview.model.mappers.BookMapper;
-import com.inerza.ulpgc.bookReview.model.mappers.ReviewMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -74,7 +71,7 @@ public class BookRestController {
     }
 
 
-    @Operation(summary = "Get books", description = "Provides all available books list")
+    @Operation(summary = "Update books", description = "Provides all available books list")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "${api.response-codes.ok.desc}"),
             @ApiResponse(responseCode = "400", description = "${api.response-codes.badRequest.desc}",
@@ -95,7 +92,7 @@ public class BookRestController {
                 .collect(Collectors.toList());
     }
 
-    @Operation(summary = "Get books", description = "Provides all available books list")
+    @Operation(summary = "Delete books", description = "Provides all available books list")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "${api.response-codes.ok.desc}"),
             @ApiResponse(responseCode = "400", description = "${api.response-codes.badRequest.desc}",
@@ -132,7 +129,7 @@ public class BookRestController {
         return BookMapper.INSTANCE.convertToDto(bookCreated);
     }
 
-    @Operation(summary = "Get a review by id")
+    @Operation(summary = "Get a book by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "${api.response-codes.ok.desc}"),
             @ApiResponse(responseCode = "400", description = "${api.response-codes.badRequest.desc}",
@@ -141,11 +138,11 @@ public class BookRestController {
                     content = { @Content(examples = { @ExampleObject(value = "") }) }) })
     @GetMapping(value = "/{id}")
     @ResponseBody
-    public BookDTO getBook(@PathVariable("id") Long id) {
+    public BookDTO getBookById(@PathVariable("id") Long id) {
         return BookMapper.INSTANCE.convertToDto(bookService.getBookById(id));
     }
 
-    @Operation(summary = "Update a book")
+    @Operation(summary = "Update a book by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "${api.response-codes.ok.desc}"),
             @ApiResponse(responseCode = "400", description = "${api.response-codes.badRequest.desc}",
@@ -154,7 +151,7 @@ public class BookRestController {
                     content = { @Content(examples = { @ExampleObject(value = "") }) }) })
     @PutMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateBook(@PathVariable("id") Long id, @RequestBody BookDTO bookDto) throws ParseException {
+    public void updateBookById(@PathVariable("id") Long id, @RequestBody BookDTO bookDto) throws ParseException {
         if(!Objects.equals(id, bookDto.getId())){
             throw new IllegalArgumentException("IDs don't match");
         }
@@ -172,7 +169,7 @@ public class BookRestController {
                     content = { @Content(examples = { @ExampleObject(value = "") }) }) })
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteBook(@PathVariable("id") Long id) throws ParseException {
+    public void deleteBookById(@PathVariable("id") Long id) throws ParseException {
         bookService.deleteBook(id);
     }
 }
