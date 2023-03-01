@@ -29,6 +29,8 @@ services:
       - bookReview_bdd
     ports:
       - "${TOMCAT_HTTP_PORT:-8080}:8080"
+    environment:
+      - jdbc.url=jdbc:postgresql://bookReview_bdd:5432/bookreview
     volumes:
       - bookReview_back_tmp_vol:/tmp
     networks:
