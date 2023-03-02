@@ -7,6 +7,13 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
+  menuOpts: any[] = [
+    {"name": "Reseñas",
+    "redirectTo": "/reviews"},
+    {"name": "Libros",
+    "redirectTo": "/books"}
+];
+
   constructor(private menuController: MenuController) {}
 
   showMenu() {

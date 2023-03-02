@@ -1,0 +1,46 @@
+img {
+    max-width: 50%;
+}
+
+.review-info{
+    padding-left: 10px;
+    font-size: 0.8em;
+    color: var(--ion-color-medium);
+
+    .review-book-title {
+      text-align: left;
+      font-size: 1.1em;
+      padding-left: 0;
+      color: var(--ion-color-dark);
+    }
+
+    .description {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      min-height: 43px;
+    }
+
+    .extra {
+      display: flex;
+      flex-direction: column;
+      gap: 2em;
+      justify-content: space-between;
+
+      .created {
+        display: flex;
+        flex-direction: row;
+      }
+
+      .author {
+        max-width: 60%;
+        display: flex;
+        flex-direction: row;
+        
+        ion-label {
+          margin-left: 3px;
+        }
+      }
+    }
+  }
