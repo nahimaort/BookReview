@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlAPI: 'https://bookreview-back.wittysmoke-d4551057.westeurope.azurecontainerapps.io/' //urlAPI: 'http://localhost:8080'
+  urlAPI: 'https://bookreview-back.wonderfulmeadow-3434fee3.westeurope.azurecontainerapps.io' //urlAPI: 'http://localhost:8080'
 };
 
 /*
