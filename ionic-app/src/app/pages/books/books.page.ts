@@ -15,7 +15,7 @@ export class BooksPage implements OnInit {
   infiniteScroll?: IonInfiniteScroll;
 
   page = 0;
-  size = 7;
+  size = 6;
 
   books: Book[] = [];
   avatarClasses = ['avatar-rojo', 'avatar-verde', 'avatar-azul-claro', 'avatar-azul-oscuro', 'avatar-violeta', 
@@ -28,38 +28,27 @@ export class BooksPage implements OnInit {
 
   ngOnInit(): void {
     this.loadBooks(false);
-    
   }
 
 
 
   loadBooks(more = false) {
-    
-    // Si no solicitamos más, es porque estamos pidiendo la primera página
-    if (!more) {
-      this.page = 0
-    }
-    
-    // Llamamos al servicio para obtener la lista de reseñas pasándole la paǵina y el número
-    // de elementos por página
-    this.booksService.getBooks(this.size).subscribe(
+
+    this.booksService.getBooks(this.page, this.size).subscribe(
       (bookList: Book[]) => {
-        
-        // Se ha obtenido una respuesta correcta del servicio, añadimos la lista de reseñas 
-        // obtenida en la respuesta al atributo reviews
+        this.page++;
+
+        console.log(this.page);
+
         this.books = [...this.books, ...bookList];
 
-        // Si está cargado el infinite scroll y no viene ninguna lista o el tamaño es menor que el número de 
-        // elementos por página, entonces  hemos llegado a la última página. Por lo tanto, desactivamos el infinite scroll
         if (!!this.infiniteScroll && (!bookList || bookList.length < this.size)) {
           console.log('fin');
-            this.infiniteScroll.disabled = true;
-            return;
+          this.infiniteScroll.complete();
+          this.infiniteScroll.disabled = true;
+          return;
         }
         
-        // En caso de no haber llegado a la última página, aumentamos el contador de página y marcamos como completada 
-        // la operación del infinite scroll
-        this.page++;
         if (!!this.infiniteScroll) {
           this.infiniteScroll.complete();
         }

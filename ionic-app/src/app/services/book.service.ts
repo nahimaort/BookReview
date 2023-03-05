@@ -15,9 +15,9 @@ export class BookService {
   newBook = new EventEmitter<Book>();
   deletedBook = new EventEmitter<number>();
 
-  getBooks(size? :number): Observable<Book[]> {
+  getBooks(page? :number, size? :number): Observable<Book[]> {
     let params = new HttpParams();
-    params = params.append('page', 0);
+    params = params.append('page', !!page ? page: 0);
     params = params.append('size', !!size ? size: 50);
     params = params.append('sortDir', 'asc');
     params = params.append('sort', 'id');

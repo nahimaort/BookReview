@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlAPI: 'http://localhost:8080' //urlAPI: 'http://localhost:8080'
+  urlAPI: 'https://bookreview-back.wonderfulmeadow-3434fee3.westeurope.azurecontainerapps.io' //urlAPI: 'http://localhost:8080'
 };
 
 /*
