@@ -51,4 +51,8 @@ export class ReviewService {
       });
     });
   }
+
+  getReviewsOfABook(bookId?: number) {
+    
+  }
 }
