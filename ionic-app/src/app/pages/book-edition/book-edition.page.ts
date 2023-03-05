@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { Book } from 'src/app/model/book';
+import { Review } from 'src/app/model/review';
 import { BookService } from 'src/app/services/book.service';
 import { ReviewService } from 'src/app/services/review.service';
 
@@ -24,7 +25,8 @@ export class BookEditionPage implements OnInit {
   bookId?: number;
 
   books: Book[] =  [];
-  published: string | undefined;
+  today: string = (new Date()).toISOString();
+  published: string = (new Date()).toISOString();
 
 
   constructor(private route: ActivatedRoute,
@@ -54,7 +56,7 @@ export class BookEditionPage implements OnInit {
   }
   
   saveChanges() {
-    /*
+    this.book.published = this.published;
     if (!!this.book.id) {
       this.bookService.updateBook(this.book).subscribe(
         resp =>{
@@ -74,10 +76,26 @@ export class BookEditionPage implements OnInit {
         }
       );
     }
-    */
   }
 
-  delete() {
+  async delete() {
+    if (!!this.book.id) {
+      await this.deleteReviewsOfBook();
+      this.bookService.deleteBook(this.book.id)
+        .then(resp => {
+          this.navController.navigateForward('books');
+        });
+    }
   }
 
+  async deleteReviewsOfBook() {
+    this.reviewService.getReviewsOfABook(this.book.id).subscribe((reviews: Review[]) => {
+      for (let review of reviews) {
+        if (review.id) {
+          this.reviewService.deleteReview(review.id);
+        }
+      }
+    });
+  }
+   
 }

@@ -28,19 +28,6 @@ export class BooksPage implements OnInit {
 
   ngOnInit(): void {
     this.loadBooks(false);
-
-    // Nos suscribimos al evento de creación de reseñas para agregarla a la lista
-    this.booksService.newBook
-        .subscribe( book => {
-      this.books.unshift(book);
-    }); 
-
-    // Nos suscribimos al evento de eliminación de reseñas para eliminarla a la lista
-    this.booksService.deletedBook
-        .subscribe( bookId => {
-        const booksResult = this.books.filter(book => book.id != bookId);
-        this.books = [...booksResult];
-    });
     
   }
 

@@ -8,6 +8,8 @@ public interface IReviewService {
 
     List<Review> getReviewList(int page, int size, String sortDir, String sort);
 
+    List<Review> getReviewsOfABook(Long bookId);
+
     void updateReview(Review post);
 
     Review createReview(Review post);

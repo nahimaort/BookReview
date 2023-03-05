@@ -2,7 +2,6 @@ package com.inerza.ulpgc.bookReview.core.persistence;
 
 import com.inerza.ulpgc.bookReview.core.repositories.BookRepository;
 import com.inerza.ulpgc.bookReview.model.entities.Book;
-import com.inerza.ulpgc.bookReview.model.entities.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,7 +40,7 @@ public class BookService implements IBookService {
     public Book getBookById(Long id) {
         return bookRepository.getReferenceById(id);
     }
-
+    
     @Override
     public void deleteBook(Long id) {
         bookRepository.deleteById(id);

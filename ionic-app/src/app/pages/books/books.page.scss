@@ -1,5 +1,5 @@
 img {
-    max-width: 50%;
+    max-width: 60%;
 }
 
 .review-info{
@@ -25,8 +25,9 @@ img {
     .extra {
       display: flex;
       flex-direction: column;
-      gap: 2em;
+      gap: 1em;
       justify-content: space-between;
+      margin-top: 1em;
 
       .created {
         display: flex;

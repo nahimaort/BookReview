@@ -48,6 +48,23 @@ public class ReviewRestController {
           .collect(Collectors.toList());
     }
 
+    @Operation(summary = "Get reviews of a book", description = "Provides all available book reviews with pagination.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "${api.response-codes.ok.desc}"),
+            @ApiResponse(responseCode = "400", description = "${api.response-codes.badRequest.desc}",
+                    content = { @Content(examples = { @ExampleObject(value = "") }) }),
+            @ApiResponse(responseCode = "404", description = "${api.response-codes.notFound.desc}",
+                    content = { @Content(examples = { @ExampleObject(value = "") }) }) })
+    @GetMapping(value = "/books/{book-id}")
+    @ResponseBody
+    public List<ReviewDTO> getReviewsOfABook(@PathVariable("book-id") Long id) {
+
+        List<Review> reviews = reviewService.getReviewsOfABook(id);
+        return reviews.stream()
+                .map(x -> ReviewMapper.INSTANCE.convertToDto(x))
+                .collect(Collectors.toList());
+    }
+
     @Operation(summary = "Create a review")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "${api.response-codes.ok.desc}"),

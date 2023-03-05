@@ -19,6 +19,13 @@
     </ion-item>
 
     <ion-item>
+      <ion-label position="floating">Imagen de portada</ion-label>
+      <ion-input name="cover"
+                  type="text"
+                  [(ngModel)]="book.cover"></ion-input>
+    </ion-item>
+
+    <ion-item>
       <ion-label position="floating">ISBN</ion-label>
       <ion-input name="isbn"
                   type="text"
@@ -34,7 +41,7 @@
     </ion-item>
     <ion-item>
       <ion-label position="floating">Fecha de la publicación</ion-label>
-      <ion-input id="open-popover2" value="{{book.published | date: 'd MMM, yyyy'}}"></ion-input>
+      <ion-input id="open-popover2" value="{{published | date: 'd MMM, yyyy'}}"></ion-input>
       <ion-popover trigger="open-popover2" cssClass="width-80">
         <ng-template>
           <ion-datetime
@@ -43,6 +50,7 @@
             [(ngModel)]="published"
             size="cover"
             [showDefaultButtons]="true"
+            [max]="today"
           ></ion-datetime>
         </ng-template>
       </ion-popover>
@@ -58,7 +66,6 @@
         GUARDAR
       </ion-button>
     </ion-fab>
-    <!--<ion-button (click)="saveChanges()">GUARDAR</ion-button>-->
   </form>
 
 </ion-content>
