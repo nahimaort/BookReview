@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Review } from '../model/review';
 import { environment } from '../../environments/environment';
 
@@ -52,7 +52,18 @@ export class ReviewService {
     });
   }
 
-  getReviewsOfABook(bookId?: number) {
-    
+  getReviewsOfABook(bookId: number): Observable<Review[]> {
+
+    let params = new HttpParams({
+
+    });
+    params = params.append('page', 0);
+    params = params.append('size', 1000);
+    params = params.append('sortDir', 'desc');
+    params = params.append('sort', 'id');
+
+    return this.http.get<Review[]>(environment.urlAPI + '/reviews', { params }).pipe(
+      map((reviews) => reviews.filter((review) => review.book?.id === bookId))
+    );
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
+import { Observable } from 'rxjs';
 import { Book } from 'src/app/model/book';
 import { Review } from 'src/app/model/review';
 import { BookService } from 'src/app/services/book.service';
@@ -24,7 +25,8 @@ export class BookEditionPage implements OnInit {
   
   bookId?: number;
 
-  books: Book[] =  [];
+  books: Book[] = [];
+  reviews?: Review[] = [];
   today: string = (new Date()).toISOString();
   published: string = (new Date()).toISOString();
 
@@ -80,22 +82,30 @@ export class BookEditionPage implements OnInit {
 
   async delete() {
     if (!!this.book.id) {
+      await this.getReviewsOfBook();
       await this.deleteReviewsOfBook();
-      this.bookService.deleteBook(this.book.id)
-        .then(resp => {
-          this.navController.navigateForward('books');
-        });
+      await this.bookService.deleteBook(this.book.id);
+      this.navController.navigateForward('books');
     }
   }
-
+  
+  async getReviewsOfBook() {
+    if (this.book.id) {
+      console.log("Pasa por get");
+      this.reviews = await this.reviewService.getReviewsOfABook(this.book.id).toPromise();
+    }
+  }
+  
   async deleteReviewsOfBook() {
-    this.reviewService.getReviewsOfABook(this.book.id).subscribe((reviews: Review[]) => {
-      for (let review of reviews) {
+    if (this.reviews) {
+      for (let review of this.reviews) {
         if (review.id) {
-          this.reviewService.deleteReview(review.id);
+          console.log("Pasa por delete");
+          await this.reviewService.deleteReview(review.id);
+          console.log('Review deleted:', review.id);
         }
       }
-    });
+    }
   }
-   
+  
 }
