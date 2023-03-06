@@ -78,3 +78,7 @@ Una vez arrancado la salida estándar y de error se mostrarán en pantalla. Para
 
 # Servicios docker "docker-compose.api.yml"
 Este docker compose es equivalente pero no arranca la parte del front. Es apropiado para arrancar el desarrollo en el front, ya que hace posible disponer del API.
+
+
+# API en Azure
+Url del API que se encuentra en Microsoft Azure: https://bookreview-back.wonderfulmeadow-3434fee3.westeurope.azurecontainerapps.io/
